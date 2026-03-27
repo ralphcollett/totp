@@ -6,8 +6,8 @@ A retro Top of the Pops-style UK music charts web app. Fetches the current UK to
 
 ## Features
 
-- UK Top 40 powered by the Last.fm `geo.getTopTracks` API
-- Retro chart UI with gold/silver/bronze positions
+- UK Top 10 powered by the Last.fm `geo.getTopTracks` API
+- Retro chart UI styled after the original Top of the Pops broadcast graphics
 
 ## Tech Stack
 
