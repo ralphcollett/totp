@@ -7,7 +7,7 @@ interface Props {
 
 export function ChartList({ entries }: Props) {
   return (
-    <ol className="max-w-2xl mx-auto space-y-2" aria-label="UK Top 10 chart">
+    <ol className="max-w-2xl mx-auto space-y-1" aria-label="UK Top 10 chart">
       {entries.map((entry) => (
         <ChartEntry key={`${entry.artistName}-${entry.trackName}`} entry={entry} />
       ))}

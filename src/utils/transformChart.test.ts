@@ -8,7 +8,7 @@ const makeTrack = (name: string, artist: string, rank: string) => ({
   listeners: '1000',
   url: `https://last.fm/${name}`,
   artist: { name: artist, url: '' },
-  image: [] as [],
+  image: [] as LastFmGeoTopTracksResponse['tracks']['track'][0]['image'],
   '@attr': { rank },
 })
 

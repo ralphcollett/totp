@@ -7,8 +7,6 @@ const makeEntry = (position: number): ChartEntry => ({
   position,
   trackName: `Song ${position}`,
   artistName: `Artist ${position}`,
-  weeksInChart: 1,
-  movement: 'new',
 })
 
 describe('ChartList', () => {

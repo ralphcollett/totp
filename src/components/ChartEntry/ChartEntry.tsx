@@ -7,76 +7,38 @@ interface Props {
 export function ChartEntry({ entry }: Props) {
   const { position, trackName, artistName, imageUrl } = entry
 
-  const positionClass =
-    position === 1
-      ? 'text-chart-gold'
-      : position === 2
-        ? 'text-chart-silver'
-        : position === 3
-          ? 'text-chart-bronze'
-          : 'text-white'
-
-  if (position === 1) {
-    return (
-      <li className="flex items-center gap-3 bg-chart-card rounded-xl pl-4 pr-4 py-4 hover:brightness-110 transition-all">
-        <span className={`font-chart text-5xl w-14 text-right shrink-0 ${positionClass}`}>
-          {position}
-        </span>
-        {imageUrl && (
-          <img
-            src={imageUrl}
-            alt=""
-            className="w-20 h-20 rounded-lg object-cover shrink-0"
-            aria-hidden="true"
-          />
-        )}
-        <div className="flex-1 min-w-0">
-          <p className="font-bold text-white text-lg truncate">{trackName}</p>
-          <p className="text-sm text-gray-300 truncate">{artistName}</p>
-        </div>
-      </li>
-    )
-  }
-
-  if (position === 2 || position === 3) {
-    return (
-      <li className="flex items-center gap-3 bg-chart-card rounded-lg pl-4 pr-3 py-3 hover:brightness-110 transition-all">
-        <span className={`font-chart text-4xl w-14 text-right shrink-0 ${positionClass}`}>
-          {position}
-        </span>
-        {imageUrl && (
-          <img
-            src={imageUrl}
-            alt=""
-            className="w-14 h-14 rounded object-cover shrink-0"
-            aria-hidden="true"
-          />
-        )}
-        <div className="flex-1 min-w-0">
-          <p className="font-bold text-white truncate">{trackName}</p>
-          <p className="text-sm text-gray-300 truncate">{artistName}</p>
-        </div>
-      </li>
-    )
-  }
-
   return (
-    <li className="flex items-center gap-3 bg-chart-card rounded-lg pl-4 pr-2 py-2 hover:brightness-110 transition-all">
-      <span className={`font-chart text-3xl w-14 text-right shrink-0 ${positionClass}`}>
-        {position}
-      </span>
-      {imageUrl && (
+    <li className="flex items-stretch border-2 border-black bg-white hover:brightness-95 transition-all">
+      {/* Position badge */}
+      <div className="border-r-2 border-black bg-white flex items-center justify-center shrink-0 w-12">
+        <span className="font-chart text-totp-orange text-3xl leading-none">{position}</span>
+      </div>
+
+      {/* Artist + track name bars */}
+      <div className="flex-1 min-w-0 flex flex-col border-r-2 border-black">
+        <div className="bg-totp-orange border-b border-black px-3 py-1.5 flex-1 flex items-center">
+          <p className="font-black text-black uppercase text-sm leading-none truncate tracking-wide">
+            {artistName}
+          </p>
+        </div>
+        <div className="bg-totp-blue px-3 py-1.5 flex-1 flex items-center">
+          <p className="font-bold text-white uppercase text-xs leading-none truncate tracking-wide">
+            {trackName}
+          </p>
+        </div>
+      </div>
+
+      {/* Album art */}
+      {imageUrl ? (
         <img
           src={imageUrl}
           alt=""
-          className="w-10 h-10 rounded object-cover shrink-0"
+          className="w-16 h-16 object-cover shrink-0"
           aria-hidden="true"
         />
+      ) : (
+        <div className="w-16 h-16 bg-gray-200 shrink-0" />
       )}
-      <div className="flex-1 min-w-0">
-        <p className="font-bold text-white text-sm truncate">{trackName}</p>
-        <p className="text-xs text-gray-300 truncate">{artistName}</p>
-      </div>
     </li>
   )
 }

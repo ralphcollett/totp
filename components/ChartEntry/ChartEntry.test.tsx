@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react'
 import { describe, it, expect } from 'vitest'
 import { ChartEntry } from './ChartEntry'
-import type { ChartEntry as ChartEntryType } from '../../types/chart'
+import type { ChartEntry as ChartEntryType } from '../../src/types/chart'
 
 const makeEntry = (overrides: Partial<ChartEntryType> = {}): ChartEntryType => ({
   position: 1,
