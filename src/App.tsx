@@ -2,7 +2,6 @@ import { useChart } from "./hooks/useChart";
 import { ChartList } from "./components/ChartList/ChartList";
 import { LoadingSpinner } from "./components/LoadingSpinner/LoadingSpinner";
 
-
 export function App() {
   const { entries, loading, error } = useChart();
 
