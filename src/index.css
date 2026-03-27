@@ -7,3 +7,12 @@
 body {
   margin: 0;
 }
+
+.totp-bg {
+  background-color: #EFEFEB;
+  background-image:
+    radial-gradient(circle, rgba(255, 0, 200, 0.18) 1.5px, transparent 1.5px),
+    radial-gradient(circle, rgba(0, 180, 255, 0.14) 1.5px, transparent 1.5px);
+  background-size: 18px 18px, 18px 18px;
+  background-position: 0 0, 9px 9px;
+}

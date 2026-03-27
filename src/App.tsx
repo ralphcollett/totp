@@ -13,7 +13,7 @@ export function App() {
   });
 
   return (
-    <main className="min-h-screen bg-totp-bg">
+    <main className="min-h-screen totp-bg">
       {/* Header */}
       <header className="border-b-4 border-black flex items-stretch">
         <div className="flex-1 flex flex-col">
