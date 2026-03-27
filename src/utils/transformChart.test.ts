@@ -56,4 +56,39 @@ describe('transformChart', () => {
     const [entry] = transformChart(response)
     expect(entry.lastFmUrl).toBe('https://last.fm/Waterloo')
   })
+
+  it('picks the largest available non-empty image', () => {
+    const track = {
+      ...makeTrack('Waterloo', 'ABBA', '1'),
+      image: [
+        { '#text': '', size: 'large' as const },
+        { '#text': 'https://img/extralarge.jpg', size: 'extralarge' as const },
+        { '#text': 'https://img/medium.jpg', size: 'medium' as const },
+      ],
+    }
+    const [entry] = transformChart(makeResponse([track]))
+    expect(entry.imageUrl).toBe('https://img/extralarge.jpg')
+  })
+
+  it('skips images with empty #text', () => {
+    const track = {
+      ...makeTrack('Waterloo', 'ABBA', '1'),
+      image: [
+        { '#text': '', size: 'large' as const },
+        { '#text': '', size: 'extralarge' as const },
+        { '#text': 'https://img/medium.jpg', size: 'medium' as const },
+      ],
+    }
+    const [entry] = transformChart(makeResponse([track]))
+    expect(entry.imageUrl).toBe('https://img/medium.jpg')
+  })
+
+  it('returns undefined imageUrl when all images are empty', () => {
+    const track = {
+      ...makeTrack('Waterloo', 'ABBA', '1'),
+      image: [{ '#text': '', size: 'large' as const }],
+    }
+    const [entry] = transformChart(makeResponse([track]))
+    expect(entry.imageUrl).toBeUndefined()
+  })
 })

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import type { ChartEntry } from '../types/chart'
 import { fetchTopTracks } from '../services/lastfm'
+import { fetchArtwork } from '../services/itunes'
 import { transformChart } from '../utils/transformChart'
 
 export interface UseChartResult {
@@ -17,9 +18,15 @@ export function useChart(): UseChartResult {
   useEffect(() => {
     const apiKey = import.meta.env.VITE_LASTFM_API_KEY as string
 
-    fetchTopTracks({ apiKey })
-      .then((response) => {
-        setEntries(transformChart(response))
+    fetchTopTracks({ apiKey, limit: 10 })
+      .then(async (response) => {
+        const chart = transformChart(response)
+        const artworkUrls = await Promise.all(
+          chart.map((entry) => fetchArtwork(entry.artistName, entry.trackName))
+        )
+        setEntries(
+          chart.map((entry, i) => ({ ...entry, imageUrl: artworkUrls[i] }))
+        )
       })
       .catch((err: unknown) => {
         setError(err instanceof Error ? err.message : 'Unknown error')

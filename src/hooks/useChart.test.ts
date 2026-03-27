@@ -2,6 +2,7 @@ import { renderHook, waitFor } from '@testing-library/react'
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { useChart } from './useChart'
 import * as lastfmService from '../services/lastfm'
+import * as itunesService from '../services/itunes'
 import type { LastFmGeoTopTracksResponse } from '../types/chart'
 
 const makeResponse = (
@@ -12,9 +13,9 @@ const makeResponse = (
     '@attr': {
       country: 'United Kingdom',
       page: '1',
-      perPage: '40',
+      perPage: '10',
       totalPages: '1',
-      total: '40',
+      total: '10',
     },
   },
 })
@@ -36,15 +37,19 @@ describe('useChart', () => {
 
   it('starts in loading state', () => {
     vi.spyOn(lastfmService, 'fetchTopTracks').mockReturnValue(new Promise(() => {}))
+    vi.spyOn(itunesService, 'fetchArtwork').mockResolvedValue(undefined)
     const { result } = renderHook(() => useChart())
     expect(result.current.loading).toBe(true)
     expect(result.current.entries).toHaveLength(0)
     expect(result.current.error).toBeNull()
   })
 
-  it('returns entries on success', async () => {
+  it('returns entries with artwork on success', async () => {
     vi.spyOn(lastfmService, 'fetchTopTracks').mockResolvedValue(
       makeResponse([makeTrack('Waterloo', 'ABBA', '1')])
+    )
+    vi.spyOn(itunesService, 'fetchArtwork').mockResolvedValue(
+      'https://example.com/art.jpg'
     )
 
     const { result } = renderHook(() => useChart())
@@ -52,6 +57,7 @@ describe('useChart', () => {
     await waitFor(() => expect(result.current.loading).toBe(false))
     expect(result.current.entries).toHaveLength(1)
     expect(result.current.entries[0].trackName).toBe('Waterloo')
+    expect(result.current.entries[0].imageUrl).toBe('https://example.com/art.jpg')
     expect(result.current.error).toBeNull()
   })
 

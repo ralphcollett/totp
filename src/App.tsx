@@ -17,7 +17,7 @@ export function App() {
         TOP OF THE POPS
       </h1>
       <p className="text-center text-xs text-gray-400 mb-8 font-retro">
-        UK Top 40 — {weekOf}
+        UK Top 10 — {weekOf}
       </p>
       {loading && <LoadingSpinner />}
       {error && (

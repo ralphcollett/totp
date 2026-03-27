@@ -25,6 +25,6 @@ describe('ChartList', () => {
 
   it('has an accessible label', () => {
     render(<ChartList entries={[makeEntry(1)]} />)
-    expect(screen.getByRole('list', { name: 'UK Top 40 chart' })).toBeInTheDocument()
+    expect(screen.getByRole('list', { name: 'UK Top 10 chart' })).toBeInTheDocument()
   })
 })
