@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import type { ChartEntry as ChartEntryType } from '../../types/chart'
 
 interface Props {
@@ -62,6 +62,7 @@ function DeezerIcon({ size = 20 }: { size?: number }) {
 export function ChartEntry({ entry, isPlaying, onPlay }: Props) {
   const { position, trackName, artistName, imageUrl, previewUrl, itunesUrl } = entry
   const audioRef = useRef<HTMLAudioElement>(null)
+  const [showLinks, setShowLinks] = useState(false)
 
   const spotifyUrl = `https://open.spotify.com/search/${encodeURIComponent(`${artistName} ${trackName}`)}`
   const amazonUrl = `https://music.amazon.co.uk/search/${encodeURIComponent(`${artistName} ${trackName}`)}`
@@ -98,29 +99,42 @@ export function ChartEntry({ entry, isPlaying, onPlay }: Props) {
             </p>
           </div>
         </div>
-        {/* Streaming icons — 2x2 grid on yellow, spans both rows */}
-        <div className="grid grid-cols-2 border-l-2 border-black w-20 shrink-0 bg-totp-yellow">
-          <a href={spotifyUrl} target="_blank" rel="noopener noreferrer" aria-label="Listen on Spotify"
-            className="flex items-center justify-center hover:brightness-95 transition-all">
-            <SpotifyIcon size={24} />
-          </a>
-          {itunesUrl ? (
-            <a href={itunesUrl} target="_blank" rel="noopener noreferrer" aria-label="Listen on Apple Music"
+        {/* Streaming icons — slide in on toggle */}
+        <div className={`overflow-hidden transition-all duration-300 shrink-0 bg-totp-yellow border-l-2 border-black ${showLinks ? 'w-20' : 'w-0 border-l-0'}`}>
+          <div className="grid grid-cols-2 w-20 h-full">
+            <a href={spotifyUrl} target="_blank" rel="noopener noreferrer" aria-label="Listen on Spotify"
               className="flex items-center justify-center hover:brightness-95 transition-all">
-              <AppleMusicIcon size={24} />
+              <SpotifyIcon size={24} />
             </a>
-          ) : (
-            <div />
-          )}
-          <a href={amazonUrl} target="_blank" rel="noopener noreferrer" aria-label="Listen on Amazon Music"
-            className="flex items-center justify-center hover:brightness-95 transition-all">
-            <AmazonMusicIcon size={24} />
-          </a>
-          <a href={deezerUrl} target="_blank" rel="noopener noreferrer" aria-label="Listen on Deezer"
-            className="flex items-center justify-center hover:brightness-95 transition-all">
-            <DeezerIcon size={24} />
-          </a>
+            {itunesUrl ? (
+              <a href={itunesUrl} target="_blank" rel="noopener noreferrer" aria-label="Listen on Apple Music"
+                className="flex items-center justify-center hover:brightness-95 transition-all">
+                <AppleMusicIcon size={24} />
+              </a>
+            ) : (
+              <div />
+            )}
+            <a href={amazonUrl} target="_blank" rel="noopener noreferrer" aria-label="Listen on Amazon Music"
+              className="flex items-center justify-center hover:brightness-95 transition-all">
+              <AmazonMusicIcon size={24} />
+            </a>
+            <a href={deezerUrl} target="_blank" rel="noopener noreferrer" aria-label="Listen on Deezer"
+              className="flex items-center justify-center hover:brightness-95 transition-all">
+              <DeezerIcon size={24} />
+            </a>
+          </div>
         </div>
+        {/* Toggle button */}
+        <button
+          onClick={() => setShowLinks(s => !s)}
+          aria-label={showLinks ? 'Hide streaming links' : 'Show streaming links'}
+          className="border-l-2 border-black bg-totp-yellow shrink-0 w-8 flex items-center justify-center hover:brightness-95 transition-all"
+        >
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="black" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"
+            style={{ transform: showLinks ? 'rotate(180deg)' : 'rotate(0deg)', transition: 'transform 0.3s' }}>
+            <polyline points="9 18 15 12 9 6" />
+          </svg>
+        </button>
       </div>
 
       {/* Album art + play button */}
