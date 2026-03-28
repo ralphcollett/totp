@@ -83,38 +83,48 @@ export function ChartEntry({ entry, isPlaying, onPlay }: Props) {
         <span className="font-chart text-black text-3xl leading-none">{position}</span>
       </div>
 
-      {/* Artist + track name bars */}
-      <div className="flex-1 min-w-0 flex flex-col border-r-2 border-black">
-        <div className="bg-totp-orange border-b border-black px-3 py-1.5 flex-1 flex items-center">
-          <p className="font-black text-black uppercase text-sm leading-none truncate tracking-wide">
-            {artistName}
-          </p>
-        </div>
-        <div className="bg-totp-blue px-3 py-1.5 flex-1 flex items-center gap-2">
-          <p className="font-bold text-white uppercase text-xs leading-none truncate tracking-wide flex-1">
-            {trackName}
-          </p>
-          <div className="flex items-center gap-1 shrink-0">
-            <a href={spotifyUrl} target="_blank" rel="noopener noreferrer" aria-label="Listen on Spotify" className="opacity-90 hover:opacity-100 transition-opacity">
-              <SpotifyIcon size={18} />
-            </a>
-            {itunesUrl && (
-              <a href={itunesUrl} target="_blank" rel="noopener noreferrer" aria-label="Listen on Apple Music" className="opacity-90 hover:opacity-100 transition-opacity">
-                <AppleMusicIcon size={18} />
-              </a>
-            )}
-            <a href={amazonUrl} target="_blank" rel="noopener noreferrer" aria-label="Listen on Amazon Music" className="opacity-90 hover:opacity-100 transition-opacity">
-              <AmazonMusicIcon size={18} />
-            </a>
-            <a href={deezerUrl} target="_blank" rel="noopener noreferrer" aria-label="Listen on Deezer" className="opacity-90 hover:opacity-100 transition-opacity">
-              <DeezerIcon size={18} />
-            </a>
+      {/* Artist + track name + streaming column */}
+      <div className="flex-1 min-w-0 flex border-r-2 border-black">
+        {/* Text */}
+        <div className="flex-1 min-w-0 flex flex-col">
+          <div className="bg-totp-orange border-b border-black px-3 py-3 flex-1 flex items-center">
+            <p className="font-black text-black uppercase text-sm leading-none truncate tracking-wide">
+              {artistName}
+            </p>
           </div>
+          <div className="bg-totp-blue px-3 py-3 flex-1 flex items-center">
+            <p className="font-bold text-white uppercase text-xs leading-none truncate tracking-wide">
+              {trackName}
+            </p>
+          </div>
+        </div>
+        {/* Streaming icons — 2x2 grid on yellow, spans both rows */}
+        <div className="grid grid-cols-2 border-l-2 border-black w-20 shrink-0 bg-totp-yellow">
+          <a href={spotifyUrl} target="_blank" rel="noopener noreferrer" aria-label="Listen on Spotify"
+            className="flex items-center justify-center hover:brightness-95 transition-all">
+            <SpotifyIcon size={24} />
+          </a>
+          {itunesUrl ? (
+            <a href={itunesUrl} target="_blank" rel="noopener noreferrer" aria-label="Listen on Apple Music"
+              className="flex items-center justify-center hover:brightness-95 transition-all">
+              <AppleMusicIcon size={24} />
+            </a>
+          ) : (
+            <div />
+          )}
+          <a href={amazonUrl} target="_blank" rel="noopener noreferrer" aria-label="Listen on Amazon Music"
+            className="flex items-center justify-center hover:brightness-95 transition-all">
+            <AmazonMusicIcon size={24} />
+          </a>
+          <a href={deezerUrl} target="_blank" rel="noopener noreferrer" aria-label="Listen on Deezer"
+            className="flex items-center justify-center hover:brightness-95 transition-all">
+            <DeezerIcon size={24} />
+          </a>
         </div>
       </div>
 
       {/* Album art + play button */}
-      <div className="relative w-16 shrink-0 self-stretch">
+      <div className="relative w-20 h-20 shrink-0">
         {imageUrl ? (
           <img
             src={imageUrl}
