@@ -80,12 +80,12 @@ export function ChartEntry({ entry, isPlaying, onPlay }: Props) {
   return (
     <li className="flex items-stretch border-2 border-black bg-white hover:brightness-95 transition-all">
       {/* Position badge */}
-      <div className="border-r-2 border-black bg-totp-yellow flex items-center justify-center shrink-0 w-12">
+      <div className="border-r border-black bg-totp-yellow flex items-center justify-center shrink-0 w-12">
         <span className="font-chart text-black text-3xl leading-none">{position}</span>
       </div>
 
       {/* Artist + track name + streaming column */}
-      <div className="flex-1 min-w-0 flex border-r-2 border-black">
+      <div className="flex-1 min-w-0 flex border-r border-black">
         {/* Text */}
         <div className="flex-1 min-w-0 flex flex-col">
           <div className="bg-totp-orange border-b border-black px-3 py-3 flex-1 flex items-center">
@@ -100,7 +100,7 @@ export function ChartEntry({ entry, isPlaying, onPlay }: Props) {
           </div>
         </div>
         {/* Streaming icons — slide in on toggle */}
-        <div className={`overflow-hidden transition-all duration-300 shrink-0 bg-totp-yellow border-l-2 border-black ${showLinks ? 'w-20' : 'w-0 border-l-0'}`}>
+        <div className={`overflow-hidden transition-all duration-300 shrink-0 bg-totp-yellow border-l border-black ${showLinks ? 'w-20' : 'w-0 border-l-0'}`}>
           <div className="grid grid-cols-2 w-20 h-full">
             <a href={spotifyUrl} target="_blank" rel="noopener noreferrer" aria-label="Listen on Spotify"
               className="flex items-center justify-center hover:brightness-95 transition-all">
@@ -128,7 +128,7 @@ export function ChartEntry({ entry, isPlaying, onPlay }: Props) {
         <button
           onClick={() => setShowLinks(s => !s)}
           aria-label={showLinks ? 'Hide streaming links' : 'Show streaming links'}
-          className="border-l-2 border-black bg-totp-yellow shrink-0 w-8 flex flex-col items-center justify-center gap-1 hover:brightness-95 transition-all"
+          className="border-l border-black bg-totp-yellow shrink-0 w-8 flex flex-col items-center justify-center gap-1 hover:brightness-95 transition-all"
         >
           {/* Headphones icon */}
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="black" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
