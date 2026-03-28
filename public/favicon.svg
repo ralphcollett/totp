@@ -1,12 +1,22 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
-  <!-- Orange top half -->
-  <rect width="32" height="17" fill="#FF8800"/>
-  <!-- Blue bottom half -->
-  <rect y="17" width="32" height="15" fill="#1155AA"/>
-  <!-- Black divider -->
-  <rect y="16" width="32" height="1.5" fill="#000"/>
-  <!-- TOP label -->
-  <text x="16" y="13" font-family="Arial Black, sans-serif" font-weight="900" font-size="11" fill="#000" text-anchor="middle" dominant-baseline="middle">TOP</text>
-  <!-- POPS label -->
-  <text x="16" y="25" font-family="Arial Black, sans-serif" font-weight="900" font-size="9" fill="#fff" text-anchor="middle" dominant-baseline="middle">POPS</text>
+  <!-- Black background -->
+  <rect width="32" height="32" fill="#000"/>
+  <!-- Yellow left bar -->
+  <rect x="2" y="5" width="3" height="18" fill="#FFEC5F"/>
+  <!-- Yellow right bar -->
+  <rect x="27" y="9" width="3" height="18" fill="#FFEC5F"/>
+  <!-- Orange top section -->
+  <rect x="6" y="2" width="20" height="14" fill="#F6A22D"/>
+  <!-- White divider -->
+  <rect x="6" y="16" width="20" height="2" fill="#fff"/>
+  <!-- Cyan bottom section -->
+  <rect x="6" y="18" width="20" height="12" fill="#00ABE7"/>
+  <!-- Cyan circle in orange section (like the logo) -->
+  <circle cx="16" cy="9" r="4" fill="#00ABE7"/>
+  <!-- Orange circle in cyan section (like the logo) -->
+  <circle cx="16" cy="24" r="3" fill="#F6A22D"/>
+  <!-- Yellow dot top-left (record spindle) -->
+  <circle cx="3.5" cy="3.5" r="2.5" fill="#FFEC5F"/>
+  <!-- Yellow dot bottom-right (record spindle) -->
+  <circle cx="28.5" cy="28.5" r="2.5" fill="#FFEC5F"/>
 </svg>

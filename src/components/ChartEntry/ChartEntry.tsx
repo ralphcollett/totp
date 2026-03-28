@@ -7,9 +7,9 @@ interface Props {
   onPlay: () => void
 }
 
-function SpotifyIcon() {
+function SpotifyIcon({ size = 20 }: { size?: number }) {
   return (
-    <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
+    <svg width={size} height={size} viewBox="0 0 24 24" aria-hidden="true">
       <circle cx="12" cy="12" r="12" fill="#1DB954" />
       <path
         fill="white"
@@ -19,9 +19,9 @@ function SpotifyIcon() {
   )
 }
 
-function AppleMusicIcon() {
+function AppleMusicIcon({ size = 20 }: { size?: number }) {
   return (
-    <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
+    <svg width={size} height={size} viewBox="0 0 24 24" aria-hidden="true">
       <rect width="24" height="24" rx="5" fill="#FC3C44" />
       <path
         fill="white"
@@ -31,9 +31,9 @@ function AppleMusicIcon() {
   )
 }
 
-function AmazonMusicIcon() {
+function AmazonMusicIcon({ size = 20 }: { size?: number }) {
   return (
-    <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
+    <svg width={size} height={size} viewBox="0 0 24 24" aria-hidden="true">
       <rect width="24" height="24" rx="5" fill="#00A8E1" />
       <path
         fill="white"
@@ -47,12 +47,25 @@ function AmazonMusicIcon() {
   )
 }
 
+function DeezerIcon({ size = 20 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" aria-hidden="true">
+      <rect width="24" height="24" rx="5" fill="#A238FF" />
+      <rect x="4" y="14" width="3" height="5" rx="0.5" fill="#fff" />
+      <rect x="8.5" y="11" width="3" height="8" rx="0.5" fill="#fff" />
+      <rect x="13" y="8" width="3" height="11" rx="0.5" fill="#fff" />
+      <rect x="17.5" y="5" width="3" height="14" rx="0.5" fill="#fff" />
+    </svg>
+  )
+}
+
 export function ChartEntry({ entry, isPlaying, onPlay }: Props) {
   const { position, trackName, artistName, imageUrl, previewUrl, itunesUrl } = entry
   const audioRef = useRef<HTMLAudioElement>(null)
 
   const spotifyUrl = `https://open.spotify.com/search/${encodeURIComponent(`${artistName} ${trackName}`)}`
   const amazonUrl = `https://music.amazon.co.uk/search/${encodeURIComponent(`${artistName} ${trackName}`)}`
+  const deezerUrl = `https://www.deezer.com/search/${encodeURIComponent(`${artistName} ${trackName}`)}`
 
   useEffect(() => {
     if (!audioRef.current) return
@@ -66,8 +79,8 @@ export function ChartEntry({ entry, isPlaying, onPlay }: Props) {
   return (
     <li className="flex items-stretch border-2 border-black bg-white hover:brightness-95 transition-all">
       {/* Position badge */}
-      <div className="border-r-2 border-black bg-white flex items-center justify-center shrink-0 w-12">
-        <span className="font-chart text-totp-orange text-3xl leading-none">{position}</span>
+      <div className="border-r-2 border-black bg-totp-yellow flex items-center justify-center shrink-0 w-12">
+        <span className="font-chart text-black text-3xl leading-none">{position}</span>
       </div>
 
       {/* Artist + track name bars */}
@@ -82,41 +95,26 @@ export function ChartEntry({ entry, isPlaying, onPlay }: Props) {
             {trackName}
           </p>
           <div className="flex items-center gap-1 shrink-0">
-            <a
-              href={spotifyUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Listen on Spotify"
-              className="opacity-90 hover:opacity-100 transition-opacity"
-            >
-              <SpotifyIcon />
+            <a href={spotifyUrl} target="_blank" rel="noopener noreferrer" aria-label="Listen on Spotify" className="opacity-90 hover:opacity-100 transition-opacity">
+              <SpotifyIcon size={18} />
             </a>
             {itunesUrl && (
-              <a
-                href={itunesUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Listen on Apple Music"
-                className="opacity-90 hover:opacity-100 transition-opacity"
-              >
-                <AppleMusicIcon />
+              <a href={itunesUrl} target="_blank" rel="noopener noreferrer" aria-label="Listen on Apple Music" className="opacity-90 hover:opacity-100 transition-opacity">
+                <AppleMusicIcon size={18} />
               </a>
             )}
-            <a
-              href={amazonUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Listen on Amazon Music"
-              className="opacity-90 hover:opacity-100 transition-opacity"
-            >
-              <AmazonMusicIcon />
+            <a href={amazonUrl} target="_blank" rel="noopener noreferrer" aria-label="Listen on Amazon Music" className="opacity-90 hover:opacity-100 transition-opacity">
+              <AmazonMusicIcon size={18} />
+            </a>
+            <a href={deezerUrl} target="_blank" rel="noopener noreferrer" aria-label="Listen on Deezer" className="opacity-90 hover:opacity-100 transition-opacity">
+              <DeezerIcon size={18} />
             </a>
           </div>
         </div>
       </div>
 
       {/* Album art + play button */}
-      <div className="relative w-16 h-16 shrink-0">
+      <div className="relative w-16 shrink-0 self-stretch">
         {imageUrl ? (
           <img
             src={imageUrl}
