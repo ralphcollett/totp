@@ -124,28 +124,10 @@ export function ChartEntry({ entry, isPlaying, onPlay }: Props) {
             </a>
           </div>
         </div>
-        {/* Toggle button */}
-        <button
-          onClick={() => setShowLinks(s => !s)}
-          aria-label={showLinks ? 'Hide streaming links' : 'Show streaming links'}
-          className="border-l border-black bg-totp-yellow shrink-0 w-6 sm:w-8 flex flex-col items-center justify-center gap-1 hover:brightness-95 transition-all"
-        >
-          {/* Headphones icon */}
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="black" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M3 18v-6a9 9 0 0 1 18 0v6" />
-            <path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3z" />
-            <path d="M3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z" />
-          </svg>
-          {/* Chevron */}
-          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="black" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"
-            style={{ transform: showLinks ? 'rotate(180deg)' : 'rotate(0deg)', transition: 'transform 0.3s' }}>
-            <polyline points="9 18 15 12 9 6" />
-          </svg>
-        </button>
       </div>
 
-      {/* Album art + play button — hidden on mobile until streaming links expanded */}
-      <div className={`relative w-20 h-20 shrink-0 sm:block ${showLinks ? 'block' : 'hidden'}`}>
+      {/* Album art + play button — collapses to 0 on mobile until streaming links expanded; on desktop always visible and moved to far right via order */}
+      <div className={`relative h-20 shrink-0 overflow-hidden transition-all duration-300 sm:w-20 sm:order-4 ${showLinks ? 'w-20' : 'w-0'}`}>
         {imageUrl ? (
           <img
             src={imageUrl}
@@ -178,6 +160,25 @@ export function ChartEntry({ entry, isPlaying, onPlay }: Props) {
           </>
         )}
       </div>
+
+      {/* Toggle button — far right on mobile, left of art on desktop */}
+      <button
+        onClick={() => setShowLinks(s => !s)}
+        aria-label={showLinks ? 'Hide streaming links' : 'Show streaming links'}
+        className="border-l border-black bg-totp-yellow shrink-0 w-6 sm:w-8 sm:order-3 flex flex-col items-center justify-center gap-1 hover:brightness-95 transition-all"
+      >
+        {/* Headphones icon */}
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="black" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M3 18v-6a9 9 0 0 1 18 0v6" />
+          <path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3z" />
+          <path d="M3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z" />
+        </svg>
+        {/* Chevron */}
+        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="black" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"
+          style={{ transform: showLinks ? 'rotate(180deg)' : 'rotate(0deg)', transition: 'transform 0.3s' }}>
+          <polyline points="9 18 15 12 9 6" />
+        </svg>
+      </button>
     </li>
   )
 }
