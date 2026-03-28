@@ -80,7 +80,7 @@ export function ChartEntry({ entry, isPlaying, onPlay }: Props) {
   return (
     <li className="flex items-stretch border-2 border-black bg-white hover:brightness-95 transition-all">
       {/* Position badge */}
-      <div className="border-r border-black bg-totp-yellow flex items-center justify-center shrink-0 w-12">
+      <div className="border-r border-black bg-totp-yellow flex items-center justify-center shrink-0 w-10 sm:w-12">
         <span className="font-chart text-black text-3xl leading-none">{position}</span>
       </div>
 
@@ -128,7 +128,7 @@ export function ChartEntry({ entry, isPlaying, onPlay }: Props) {
         <button
           onClick={() => setShowLinks(s => !s)}
           aria-label={showLinks ? 'Hide streaming links' : 'Show streaming links'}
-          className="border-l border-black bg-totp-yellow shrink-0 w-8 flex flex-col items-center justify-center gap-1 hover:brightness-95 transition-all"
+          className="border-l border-black bg-totp-yellow shrink-0 w-6 sm:w-8 flex flex-col items-center justify-center gap-1 hover:brightness-95 transition-all"
         >
           {/* Headphones icon */}
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="black" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -144,8 +144,8 @@ export function ChartEntry({ entry, isPlaying, onPlay }: Props) {
         </button>
       </div>
 
-      {/* Album art + play button */}
-      <div className="relative w-20 h-20 shrink-0">
+      {/* Album art + play button — hidden on mobile until streaming links expanded */}
+      <div className={`relative w-20 h-20 shrink-0 sm:block ${showLinks ? 'block' : 'hidden'}`}>
         {imageUrl ? (
           <img
             src={imageUrl}
