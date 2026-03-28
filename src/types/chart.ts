@@ -4,6 +4,7 @@ export interface ChartEntry {
   artistName: string
   imageUrl?: string
   previewUrl?: string
+  itunesUrl?: string
   lastFmUrl?: string
 }
 

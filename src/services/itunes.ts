@@ -1,6 +1,7 @@
 interface ItunesResult {
   artworkUrl100: string
   previewUrl?: string
+  trackViewUrl?: string
 }
 
 interface ItunesResponse {
@@ -11,6 +12,7 @@ interface ItunesResponse {
 export interface ItunesArtworkResult {
   imageUrl?: string
   previewUrl?: string
+  itunesUrl?: string
 }
 
 export async function fetchArtwork(
@@ -37,5 +39,6 @@ export async function fetchArtwork(
       ? result.artworkUrl100.replace('100x100bb', '600x600bb')
       : undefined,
     previewUrl: result.previewUrl,
+    itunesUrl: result.trackViewUrl,
   }
 }

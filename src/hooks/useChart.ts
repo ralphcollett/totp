@@ -29,6 +29,7 @@ export function useChart(): UseChartResult {
             ...entry,
             imageUrl: itunesResults[i].imageUrl,
             previewUrl: itunesResults[i].previewUrl,
+            itunesUrl: itunesResults[i].itunesUrl,
           }))
         )
       })
