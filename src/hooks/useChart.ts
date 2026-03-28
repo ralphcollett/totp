@@ -21,11 +21,15 @@ export function useChart(): UseChartResult {
     fetchTopTracks({ apiKey, limit: 10 })
       .then(async (response) => {
         const chart = transformChart(response)
-        const artworkUrls = await Promise.all(
+        const itunesResults = await Promise.all(
           chart.map((entry) => fetchArtwork(entry.artistName, entry.trackName))
         )
         setEntries(
-          chart.map((entry, i) => ({ ...entry, imageUrl: artworkUrls[i] }))
+          chart.map((entry, i) => ({
+            ...entry,
+            imageUrl: itunesResults[i].imageUrl,
+            previewUrl: itunesResults[i].previewUrl,
+          }))
         )
       })
       .catch((err: unknown) => {

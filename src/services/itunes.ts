@@ -1,5 +1,6 @@
 interface ItunesResult {
   artworkUrl100: string
+  previewUrl?: string
 }
 
 interface ItunesResponse {
@@ -7,11 +8,16 @@ interface ItunesResponse {
   results: ItunesResult[]
 }
 
+export interface ItunesArtworkResult {
+  imageUrl?: string
+  previewUrl?: string
+}
+
 export async function fetchArtwork(
   artistName: string,
   trackName: string,
   fetchFn: typeof fetch = fetch
-): Promise<string | undefined> {
+): Promise<ItunesArtworkResult> {
   const params = new URLSearchParams({
     term: `${artistName} ${trackName}`,
     entity: 'song',
@@ -20,12 +26,16 @@ export async function fetchArtwork(
 
   const response = await fetchFn(`/itunes-api/search?${params.toString()}`)
 
-  if (!response.ok) return undefined
+  if (!response.ok) return {}
 
   const data = (await response.json()) as ItunesResponse
+  const result = data.results[0]
+  if (!result) return {}
 
-  const url = data.results[0]?.artworkUrl100
-  if (!url) return undefined
-
-  return url.replace('100x100bb', '600x600bb')
+  return {
+    imageUrl: result.artworkUrl100
+      ? result.artworkUrl100.replace('100x100bb', '600x600bb')
+      : undefined,
+    previewUrl: result.previewUrl,
+  }
 }

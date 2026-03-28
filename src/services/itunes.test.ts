@@ -1,11 +1,11 @@
 import { describe, it, expect, vi } from 'vitest'
 import { fetchArtwork } from './itunes'
 
-const makeOkResponse = (artworkUrl100?: string) => ({
+const makeOkResponse = (artworkUrl100?: string, previewUrl?: string) => ({
   ok: true,
   json: async () => ({
     resultCount: artworkUrl100 ? 1 : 0,
-    results: artworkUrl100 ? [{ artworkUrl100 }] : [],
+    results: artworkUrl100 ? [{ artworkUrl100, previewUrl }] : [],
   }),
 })
 
@@ -15,8 +15,17 @@ describe('fetchArtwork', () => {
       makeOkResponse('https://example.com/image/100x100bb.jpg')
     )
 
-    const url = await fetchArtwork('ABBA', 'Waterloo', mockFetch as typeof fetch)
-    expect(url).toBe('https://example.com/image/600x600bb.jpg')
+    const result = await fetchArtwork('ABBA', 'Waterloo', mockFetch as typeof fetch)
+    expect(result.imageUrl).toBe('https://example.com/image/600x600bb.jpg')
+  })
+
+  it('returns previewUrl when present', async () => {
+    const mockFetch = vi.fn().mockResolvedValue(
+      makeOkResponse('https://example.com/image/100x100bb.jpg', 'https://example.com/preview.m4a')
+    )
+
+    const result = await fetchArtwork('ABBA', 'Waterloo', mockFetch as typeof fetch)
+    expect(result.previewUrl).toBe('https://example.com/preview.m4a')
   })
 
   it('searches using artist name and track name', async () => {
@@ -31,15 +40,17 @@ describe('fetchArtwork', () => {
     expect(params.get('limit')).toBe('1')
   })
 
-  it('returns undefined when no results are found', async () => {
+  it('returns empty object when no results are found', async () => {
     const mockFetch = vi.fn().mockResolvedValue(makeOkResponse())
-    const url = await fetchArtwork('Unknown', 'Track', mockFetch as typeof fetch)
-    expect(url).toBeUndefined()
+    const result = await fetchArtwork('Unknown', 'Track', mockFetch as typeof fetch)
+    expect(result.imageUrl).toBeUndefined()
+    expect(result.previewUrl).toBeUndefined()
   })
 
-  it('returns undefined when the response is not ok', async () => {
+  it('returns empty object when the response is not ok', async () => {
     const mockFetch = vi.fn().mockResolvedValue({ ok: false, status: 500 })
-    const url = await fetchArtwork('ABBA', 'Waterloo', mockFetch as typeof fetch)
-    expect(url).toBeUndefined()
+    const result = await fetchArtwork('ABBA', 'Waterloo', mockFetch as typeof fetch)
+    expect(result.imageUrl).toBeUndefined()
+    expect(result.previewUrl).toBeUndefined()
   })
 })

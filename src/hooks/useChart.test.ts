@@ -37,7 +37,7 @@ describe('useChart', () => {
 
   it('starts in loading state', () => {
     vi.spyOn(lastfmService, 'fetchTopTracks').mockReturnValue(new Promise(() => {}))
-    vi.spyOn(itunesService, 'fetchArtwork').mockResolvedValue(undefined)
+    vi.spyOn(itunesService, 'fetchArtwork').mockResolvedValue({})
     const { result } = renderHook(() => useChart())
     expect(result.current.loading).toBe(true)
     expect(result.current.entries).toHaveLength(0)
@@ -48,9 +48,10 @@ describe('useChart', () => {
     vi.spyOn(lastfmService, 'fetchTopTracks').mockResolvedValue(
       makeResponse([makeTrack('Waterloo', 'ABBA', '1')])
     )
-    vi.spyOn(itunesService, 'fetchArtwork').mockResolvedValue(
-      'https://example.com/art.jpg'
-    )
+    vi.spyOn(itunesService, 'fetchArtwork').mockResolvedValue({
+      imageUrl: 'https://example.com/art.jpg',
+      previewUrl: 'https://example.com/preview.m4a',
+    })
 
     const { result } = renderHook(() => useChart())
 
@@ -58,6 +59,7 @@ describe('useChart', () => {
     expect(result.current.entries).toHaveLength(1)
     expect(result.current.entries[0].trackName).toBe('Waterloo')
     expect(result.current.entries[0].imageUrl).toBe('https://example.com/art.jpg')
+    expect(result.current.entries[0].previewUrl).toBe('https://example.com/preview.m4a')
     expect(result.current.error).toBeNull()
   })
 
