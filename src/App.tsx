@@ -42,6 +42,27 @@ export function App() {
           </p>
         )}
         {!loading && !error && <ChartList entries={entries} />}
+
+        {!loading && !error && (
+          <details className="mt-6 text-center">
+            <summary className="text-xs text-gray-400 cursor-pointer hover:text-gray-600 transition-colors select-none">
+              How is this chart calculated?
+            </summary>
+            <p className="mt-2 text-xs text-gray-400 leading-relaxed max-w-sm mx-auto">
+              Chart positions are based on the most-played tracks by UK listeners on Last.fm,
+              updated daily using scrobble data from Last.fm's{' '}
+              <a
+                href="https://www.last.fm/api/show/geo.getTopTracks"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline hover:text-gray-600"
+              >
+                geo.getTopTracks
+              </a>{' '}
+              API.
+            </p>
+          </details>
+        )}
       </div>
     </main>
   );
