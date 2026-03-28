@@ -18,7 +18,7 @@ export function useChart(): UseChartResult {
   useEffect(() => {
     const apiKey = import.meta.env.VITE_LASTFM_API_KEY as string
 
-    fetchTopTracks({ apiKey, limit: 10 })
+    fetchTopTracks({ apiKey, limit: 40 })
       .then(async (response) => {
         const chart = transformChart(response)
         const itunesResults = await Promise.all(

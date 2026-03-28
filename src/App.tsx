@@ -26,7 +26,7 @@ export function App() {
           </div>
           <div className="bg-totp-blue px-4 py-1">
             <span className="font-black text-xs text-white uppercase tracking-widest">
-              UK Top 10 — {weekOf}
+              UK Top 40 — {weekOf}
             </span>
           </div>
         </div>
