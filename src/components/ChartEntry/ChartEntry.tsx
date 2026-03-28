@@ -128,9 +128,16 @@ export function ChartEntry({ entry, isPlaying, onPlay }: Props) {
         <button
           onClick={() => setShowLinks(s => !s)}
           aria-label={showLinks ? 'Hide streaming links' : 'Show streaming links'}
-          className="border-l-2 border-black bg-totp-yellow shrink-0 w-8 flex items-center justify-center hover:brightness-95 transition-all"
+          className="border-l-2 border-black bg-totp-yellow shrink-0 w-8 flex flex-col items-center justify-center gap-1 hover:brightness-95 transition-all"
         >
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="black" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"
+          {/* Headphones icon */}
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="black" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M3 18v-6a9 9 0 0 1 18 0v6" />
+            <path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3z" />
+            <path d="M3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z" />
+          </svg>
+          {/* Chevron */}
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="black" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"
             style={{ transform: showLinks ? 'rotate(180deg)' : 'rotate(0deg)', transition: 'transform 0.3s' }}>
             <polyline points="9 18 15 12 9 6" />
           </svg>
